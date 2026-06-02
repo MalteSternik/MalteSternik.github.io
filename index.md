@@ -7,14 +7,14 @@ layout: default
 
 **[Biscuit](http://sblisesivdin.github.io/biscuit)** is a single-page responsive Jekyll theme. This is the simplest and still-good-looking Jekyll theme that you can find. 
 
-## Usage
+## About me
 
 You can use this theme with [Jekyll](http://jekyllrb.com/) or simply use it with [GitHub Pages](https://pages.github.com).
 For local usage, simply download [Jekyll](http://jekyllrb.com/) and follow the installation guide for more information. You can download the latest Biscuit from [its Github repository](https://github.com/sblisesivdin/biscuit).
 
 If you prefer to use GitHub Pages, you do not need to download it, upload files to a new repository, etc., just [fork](https://docs.github.com/en/get-starter/quickstart/fork-a-repo) and use it.
 
-### Files
+### Publications
 
 * `_config.yml`            : Main configuration file.
 * `index.md`               : Website page (for now, this page).
@@ -24,7 +24,7 @@ If you prefer to use GitHub Pages, you do not need to download it, upload files 
 * `css/main.csss`          : Main scss file.
 * `README.md`              : A simple readme file.
 
-## Example tag usage
+## CV
 
 ## Header 1
 ### Header 2
