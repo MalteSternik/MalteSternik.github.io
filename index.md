@@ -16,7 +16,8 @@ If you prefer to use GitHub Pages, you do not need to download it, upload files 
 
 ### Publications
 
-* `_config.yml`            : Main configuration file.
+* M. Sternik, R. Laarman-Quante, A. Drackert. Using k-Shot Prompting with Large k for the Automated Scoring of a German Written Elicited Imitation TEst.
+German Written Elicited Imitation Test
 * `index.md`               : Website page (for now, this page).
 * `_includes/head.html`    : File to add custom code to `<head>` section.
 * `_includes/scripts.html` : File to add custom code before `</body>`. You can change footer at here.
