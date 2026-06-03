@@ -14,6 +14,10 @@ For local usage, simply download [Jekyll](http://jekyllrb.com/) and follow the i
 
 If you prefer to use GitHub Pages, you do not need to download it, upload files to a new repository, etc., just [fork](https://docs.github.com/en/get-starter/quickstart/fork-a-repo) and use it.
 
+<p>
+  Yessirsky
+</p>
+
 ### Publications
 
 * M. Sternik, R. Laarman-Quante, A. Drackert. Using k-Shot Prompting with Large k for the Automated Scoring of a German Written Elicited Imitation TEst.
