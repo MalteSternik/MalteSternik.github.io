@@ -20,7 +20,7 @@
         <!-- <h1 class="header-name" itemprop="name">{{ site.resume_name }}</h1>  -->
 
         <!-- To display contact info here, change `display_header_contact_info` value in _config.yml to true -->
-        <p>I am a Computerlinguist student and my research interests are: </p>
+        <p>I am currently a Computerlinguist student at the Ruhr-Universität Bochum. I have various research interests and these are some of them: </p>
         {% raw %}
           <style>
           .tsne-wrap { position: relative; max-width: 700px; margin: 0 auto; }
@@ -36,7 +36,6 @@
           </style>
 
           <div class="tsne-wrap">
-            <h1>Research interests · latent space</h1>
             <div style="position:relative">
               <canvas id="tsne-c" style="display:block;width:100%;"></canvas>
               <div class="tsne-tip" id="tsne-tip"></div>
@@ -46,20 +45,20 @@
           <script>
           /* ✏️ Edit your points here */
           const POINTS = [
-            { label: "Semantic shift",      x: 0.20, y: 0.25, color: "#7F77DD" },
+            { label: "Semantic shifts",      x: 0.20, y: 0.25, color: "#7F77DD" },
             { label: "Neologisms",          x: 0.72, y: 0.18, color: "#1D9E75" },
-            { label: "Polysemy",            x: 0.55, y: 0.60, color: "#D85A30" },
-            { label: "Conceptual metaphor", x: 0.18, y: 0.70, color: "#C4527A" },
-            { label: "Speech acts",         x: 0.78, y: 0.72, color: "#E5A320" },
+            { label: "Metaphors",            x: 0.55, y: 0.60, color: "#f54842" },
+            { label: "Word embeddings", x: 0.18, y: 0.70, color: "#C4527A" },
+            { label: "Etymology",         x: 0.78, y: 0.72, color: "#f5b642" },
           ];
-          const NOISE = 120;
+          const NOISE = 100;
 
           const canvas = document.getElementById('tsne-c');
           const tip    = document.getElementById('tsne-tip');
           let W, H, dpr, hovered = null;
 
           function seededRand(s) { return () => { s = (s*16807)%2147483647; return (s-1)/2147483646; }; }
-          const rand  = seededRand(42);
+          const rand  = seededRand(343);
           const noise = Array.from({length: NOISE}, () => ({x: 0.05+rand()*0.9, y: 0.05+rand()*0.9}));
 
           function xy(p) { const pad=40; return {cx: pad+p.x*(W-pad*2), cy: pad+p.y*(H-pad*2)}; }
@@ -77,19 +76,19 @@
             noise.forEach(p=>{
               const {cx,cy}=xy(p);
               ctx.beginPath(); ctx.arc(cx,cy,3,0,Math.PI*2);
-              ctx.fillStyle='rgba(0,0,0,0.08)'; ctx.fill();
+              ctx.fillStyle='rgba(0,0,0,0.3)'; ctx.fill();
             });
             POINTS.forEach((p,i)=>{
               const {cx,cy}=xy(p); const isHov=hovered===i;
-              if(isHov){ctx.beginPath();ctx.arc(cx,cy,16,0,Math.PI*2);ctx.fillStyle=p.color+'18';ctx.fill();}
+              if(isHov){ctx.beginPath();ctx.arc(cx,cy,16,0,Math.PI*2);ctx.fillStyle=p.color+'78';ctx.fill();}
               ctx.beginPath(); ctx.arc(cx,cy,isHov?6.5:5.5,0,Math.PI*2); ctx.fillStyle=p.color; ctx.fill();
               const r=cx>W*0.62; ctx.textAlign=r?'right':'left';
-              ctx.font=`${isHov?'400':'300'} 11px monospace`; ctx.fillStyle=isHov?p.color:p.color+'cc';
+              ctx.font=`${isHov?'400':'300'} 14px monospace`; ctx.fillStyle=isHov?p.color:p.color;
               ctx.fillText(p.label, r?cx-11:cx+11, cy-9);
             });
-            ctx.font='300 10px monospace'; ctx.fillStyle='rgba(0,0,0,0.18)'; ctx.textAlign='center';
-            ctx.fillText('dimension 1',W/2,H-8);
-            ctx.save(); ctx.translate(11,H/2); ctx.rotate(-Math.PI/2); ctx.fillText('dimension 2',0,0); ctx.restore();
+            ctx.font='300 10px monospace'; ctx.fillStyle='rgba(0,0,0,0.38)'; ctx.textAlign='center';
+            ctx.fillText('these are no real embeddings so the plot is not to be interpreted as mathematically relevant!',W/2,H-8);
+            ctx.save(); ctx.translate(11,H/2); ctx.rotate(-Math.PI/2); ctx.fillText('',0,0); ctx.restore();
             ctx.restore();
           }
 
