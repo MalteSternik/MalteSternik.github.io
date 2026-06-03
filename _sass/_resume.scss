@@ -5,7 +5,7 @@
 
 .section-header {
   @include section_border;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.0rem;
 
   h2 {
     @include sans;
@@ -210,7 +210,7 @@
   .section-header {
     @include section_border_thin;
     margin-bottom: 1rem;
-    h2 { font-size: 1.2rem; line-height: 1.5rem; }
+    h2 { font-size: 1.0rem; line-height: 1.0rem; }
   }
   .content-section {
     margin: 0 0 1rem;
