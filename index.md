@@ -9,6 +9,7 @@ layout: default
 
 ## About me
 
+{% raw %}
 <style>
 .tsne-wrap { position: relative; max-width: 700px; margin: 0 auto; }
 .tsne-wrap h1 {
@@ -100,6 +101,7 @@ canvas.addEventListener('mouseleave',()=>{hovered=null;tip.style.opacity='0';dra
 window.addEventListener('resize',resize);
 resize();
 </script>
+{% endraw %}
 If you prefer to use GitHub Pages, you do not need to download it, upload files to a new repository, etc., just [fork](https://docs.github.com/en/get-starter/quickstart/fork-a-repo) and use it.
 
 
