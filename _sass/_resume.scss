@@ -6,6 +6,8 @@
 .section-header {
   @include section_border;
   margin-bottom: 1.0rem;
+  width: 100%;          // ← ensure it stretches full width
+  display: block;       // ← force block layout
 
   h2 {
     @include sans;
@@ -13,6 +15,8 @@
     font-size: 1.75rem;
     letter-spacing: -.05rem;
     margin: 0;
+    display: block;     // ← prevent inline sizing
+    width: 100%;        // ← match parent width
   }
 }
 
