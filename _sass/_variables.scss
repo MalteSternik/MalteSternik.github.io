@@ -10,12 +10,21 @@ $black:             #333;
 
 // Styles
 $text_color:        $black;
+$heading-color-h1: #1a1a2e;   // deep navy
+$heading-color-h2: #16213e;
+$heading-color-h3: #0f3460;
+$heading-color-h4: #533483;
+$heading-color-h5: #6b4c9a;
+$heading-color-h6: #888;
 
 // Font stack
-$body-font: Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol" !default;
+// OLD:
+$body-font: Helvetica, arial, ... sans-serif !default;
+// NEW:
+$body-font: Consolas, "Liberation Mono", Menlo, Courier, monospace !default;
 
 // The base body size
-$body-font-size: 13px !default;
+$body-font-size: 12px !default;
 
 // Monospace font stack
 $mono-font: Consolas, "Liberation Mono", Menlo, Courier, monospace !default;
