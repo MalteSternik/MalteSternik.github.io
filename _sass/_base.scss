@@ -11,7 +11,7 @@ html {
 }
 
 body{
-  @include serif;
+  @include mono;
   color: $text_color;
   font-size: 16px;
   line-height: 1.5;
@@ -26,6 +26,13 @@ body{
   margin: 0 auto;
   zoom: 1;
 }
+
+h1 { color: $heading-color-h1; }
+h2 { color: $heading-color-h2; }
+h3 { color: $heading-color-h3; }
+h4 { color: $heading-color-h4; }
+h5 { color: $heading-color-h5; }
+h6 { color: $heading-color-h6; }
 
 // clearfix (now called group,
 // via http://css-tricks.com/snippets/css/clear-fix/)
