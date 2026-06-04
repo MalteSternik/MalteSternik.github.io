@@ -76,7 +76,7 @@
             noise.forEach(p=>{
               const {cx,cy}=xy(p);
               ctx.beginPath(); ctx.arc(cx,cy,3,0,Math.PI*2);
-              ctx.fillStyle='rgba(0,0,0,0.3)'; ctx.fill();
+              ctx.fillStyle='rgba(255,255,255,0.3)'; ctx.fill();
             });
             POINTS.forEach((p,i)=>{
               const {cx,cy}=xy(p); const isHov=hovered===i;
@@ -86,7 +86,7 @@
               ctx.font=`${isHov?'400':'300'} 15px monospace`; ctx.fillStyle=isHov?p.color:p.color;
               ctx.fillText(p.label, r?cx-11:cx+11, cy-9);
             });
-            ctx.font='300 10px monospace'; ctx.fillStyle='rgba(0,0,0,0.38)'; ctx.textAlign='center';
+            ctx.font='300 10px monospace'; ctx.fillStyle='rgba(255,255,255,0.38)'; ctx.textAlign='center';
             ctx.fillText('these are no real embeddings so the plot is not to be interpreted as mathematically relevant!',W/2,H-8);
             ctx.save(); ctx.translate(11,H/2); ctx.rotate(-Math.PI/2); ctx.fillText('',0,0); ctx.restore();
             ctx.restore();
