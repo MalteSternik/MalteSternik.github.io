@@ -45,11 +45,11 @@
           <script>
           /* ✏️ Edit your points here */
           const POINTS = [
-            { label: "Semantic shifts",      x: 0.20, y: 0.25, color: "#7F77DD" },
-            { label: "Neologisms",          x: 0.72, y: 0.18, color: "#1D9E75" },
-            { label: "Metaphors",            x: 0.55, y: 0.60, color: "#f54842" },
-            { label: "Word embeddings", x: 0.18, y: 0.70, color: "#C4527A" },
-            { label: "Etymology",         x: 0.78, y: 0.72, color: "#f5b642" },
+            { label: "Semantic shifts", tooltip: "What makes words suitable for semantic shifts? How does it happen in the online sphere? ",      x: 0.20, y: 0.25, color: "#7F77DD" },
+            { label: "Neologisms", tooltip: "When, why and how are new words formed and used, especially online?",         x: 0.72, y: 0.18, color: "#1D9E75" },
+            { label: "Metaphors", tooltip: "How can we visualize and quantify metaphor usage and metaphor construction?",            x: 0.55, y: 0.60, color: "#f54842" },
+            { label: "Word embeddings", tooltip: "How do computational embeddings relate to cognitive word representations and semantics?",  x: 0.18, y: 0.70, color: "#C4527A" },
+            { label: "Sociolinguistics", tooltip: "What can linguistic data tell us about society?",          x: 0.78, y: 0.72, color: "#f5b642" },
           ];
           const NOISE = 100;
 
@@ -83,7 +83,7 @@
               if(isHov){ctx.beginPath();ctx.arc(cx,cy,16,0,Math.PI*2);ctx.fillStyle=p.color+'78';ctx.fill();}
               ctx.beginPath(); ctx.arc(cx,cy,isHov?6.5:5.5,0,Math.PI*2); ctx.fillStyle=p.color; ctx.fill();
               const r=cx>W*0.62; ctx.textAlign=r?'right':'left';
-              ctx.font=`${isHov?'400':'300'} 14px monospace`; ctx.fillStyle=isHov?p.color:p.color;
+              ctx.font=`${isHov?'400':'300'} 15px monospace`; ctx.fillStyle=isHov?p.color:p.color;
               ctx.fillText(p.label, r?cx-11:cx+11, cy-9);
             });
             ctx.font='300 10px monospace'; ctx.fillStyle='rgba(0,0,0,0.38)'; ctx.textAlign='center';
@@ -105,7 +105,7 @@
             if(found!==hovered){hovered=found;draw();}
             if(found!==null){
               tip.style.opacity='1'; tip.style.left=(mx+14)+'px'; tip.style.top=(my-10)+'px';
-              tip.textContent=POINTS[found].label;
+              tip.textContent=POINTS[found].tooltip;
             } else { tip.style.opacity='0'; }
           });
           canvas.addEventListener('mouseleave',()=>{hovered=null;tip.style.opacity='0';draw();});
