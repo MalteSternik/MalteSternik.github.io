@@ -88,6 +88,11 @@
   font-weight: 700;
 }
 
+
+@mixin mono {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
 // layout
 
 @mixin section_border {
