@@ -8,12 +8,13 @@
 
 html {
   background: $white;
+  font-size: 20px
 }
 
 body{
   @include mono;
   color: $text_color;
-  font-size: 24px;
+  font-size: 1rem;
   line-height: 1.5;
 }
 
