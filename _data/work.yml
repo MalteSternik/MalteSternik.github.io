@@ -1,0 +1,27 @@
+- title: "Research Assistant"
+  org: "Ruhr-Universität Bochum"
+  date_start: 2025
+  date_end: "present"
+  description: >
+    Project: Computational Historical Linguistics (Comphist).
+    Developing diachronic word embedding models for German historical corpora.
+  tags:
+    - Python
+    - word2vec
+    - corpus linguistics
+
+- title: "Teaching Assistant"
+  org: "Ruhr-Universität Bochum · Dept. of Linguistics"
+  date_start: 2023
+  date_end: 2025
+  description: >
+    Tutorials for Introduction to Computational Linguistics and Statistics for Linguists.
+  tags: []
+
+- title: "Research Intern"
+  org: "Institute / Company Name"
+  date_start: 2022
+  date_end: ""
+  description: >
+    Brief description of internship tasks and outcomes.
+  tags: []

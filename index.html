@@ -1,3 +1,229 @@
 ---
-layout: resume
+layout: null
 ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academic CV</title>
+<link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+</head>
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header class="site-header">
+  <div class="avatar-wrap">
+    <!-- Replace the div below with: <img src="assets/photo.jpg" alt="Your Name" class="avatar"> -->
+    <div class="avatar-placeholder">your<br>photo<br>here</div>
+  </div>
+  <div class="header-text">
+    <h1>Your Name</h1>
+    <div class="title">PhD Researcher · Computational Linguistics</div>
+    <div class="affiliation">Ruhr-Universität Bochum &nbsp;·&nbsp; Faculty of Philology</div>
+    <div class="header-links">
+      <a href="mailto:you@rub.de">you@rub.de</a>
+      <a href="https://github.com/yourhandle">github</a>
+      <a href="https://scholar.google.com">google scholar</a>
+      <a href="cv.pdf">cv.pdf</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav>
+  <a href="#about">about</a>
+  <a href="#publications">publications</a>
+  <a href="#work">work</a>
+  <a href="#education">education</a>
+</nav>
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<section id="about">
+  <div class="section-label">about me</div>
+
+  <p class="about-text">
+    I am a PhD researcher at Ruhr-Universität Bochum working at the intersection of
+    computational linguistics and historical language change. My research focuses on how
+    meaning evolves in language over time, combining distributional semantics with
+    corpus-driven methods. I am particularly interested in how computational models can
+    capture subtle linguistic phenomena that traditionally required human expertise to detect.
+  </p>
+
+  <!-- Embeddings visualisation -->
+  <div class="embeddings-wrap">
+    <div class="embeddings-label">// word embedding space — research interests</div>
+    <div style="position:relative">
+      <canvas id="tsne-c" style="display:block;width:100%;cursor:pointer;"></canvas>
+      <div id="tsne-tip"></div>
+    </div>
+    <div id="tsne-panel" style="min-height:2.4rem;margin-top:0.8rem;padding:0.6rem 0.8rem;border-left:2px solid transparent;border-radius:2px;font-size:0.78rem;line-height:1.5;color:var(--muted);transition:border-color 0.2s,color 0.2s;">
+      <em>click a point to pin its description here</em>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PUBLICATIONS ═══════════════ -->
+<section id="publications">
+  <div class="section-label">publications</div>
+
+  <ul class="pub-list">
+    {% for pub in site.data.publications %}
+    <li>
+      <div class="pub-title">
+        {% if pub.url != "" %}<a href="{{ pub.url }}" style="color:inherit;text-decoration:none;">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}
+      </div>
+      <div class="pub-authors">{{ pub.authors }}</div>
+      <div class="pub-venue">{{ pub.venue }} <span class="pub-year">{{ pub.year }}</span></div>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+
+<!-- ═══════════════ WORK ═══════════════ -->
+<section id="work">
+  <div class="section-label">work</div>
+
+  {% for job in site.data.work %}
+  <div class="entry">
+    <div class="entry-date">
+      {{ job.date_start }}{% if job.date_end != "" %} —<br>{{ job.date_end }}{% endif %}
+    </div>
+    <div class="entry-body">
+      <div class="entry-title">{{ job.title }}</div>
+      <div class="entry-sub">{{ job.org }}</div>
+      {% if job.description %}<div class="entry-desc">{{ job.description }}</div>{% endif %}
+      {% for tag in job.tags %}<span class="entry-tag">{{ tag }}</span>{% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</section>
+
+<!-- ═══════════════ EDUCATION ═══════════════ -->
+<section id="education">
+  <div class="section-label">education</div>
+
+  {% for edu in site.data.education %}
+  <div class="entry">
+    <div class="entry-date">
+      {{ edu.date_start }}{% if edu.date_end != "" %} —<br>{{ edu.date_end }}{% endif %}
+    </div>
+    <div class="entry-body">
+      <div class="entry-title">{{ edu.title }}</div>
+      <div class="entry-sub">{{ edu.org }}</div>
+      {% if edu.description %}<div class="entry-desc">{{ edu.description }}</div>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</section>
+
+<footer>
+  last updated: 2025 &nbsp;·&nbsp; built with Jekyll &nbsp;·&nbsp; hosted on GitHub Pages
+</footer>
+
+<script>
+const POINTS = [
+  { label: "Semantic Shifts",  tooltip: "What makes words suitable for semantic shifts? How does it happen in the online sphere?",  x: 0.20, y: 0.25, color: "#7eb8f7" },
+  { label: "Neologisms",       tooltip: "When, why and how are new words formed and used, especially online?",                       x: 0.72, y: 0.18, color: "#a8e6cf" },
+  { label: "Metaphors",        tooltip: "How can metaphor constructions be quantified and automatically detected?",                  x: 0.55, y: 0.60, color: "#f28b82" },
+  { label: "Word Embeddings",  tooltip: "How do computational embeddings relate to cognitive word representations and semantics?",   x: 0.18, y: 0.70, color: "#d4a0c8" },
+  { label: "Sociolinguistics", tooltip: "What can linguistic data tell us about society?",                                           x: 0.78, y: 0.72, color: "#f7c59f" },
+];
+const NOISE = 100;
+
+const canvas = document.getElementById('tsne-c');
+const tip    = document.getElementById('tsne-tip');
+let W, H, dpr, hovered = null;
+
+function seededRand(s) { return () => { s = (s*16807)%2147483647; return (s-1)/2147483646; }; }
+const rand  = seededRand(343);
+const noise = Array.from({length: NOISE}, () => ({x: 0.05+rand()*0.9, y: 0.05+rand()*0.9}));
+
+function xy(p) { const pad=40; return {cx: pad+p.x*(W-pad*2), cy: pad+p.y*(H-pad*2)}; }
+
+function draw() {
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.save(); ctx.scale(dpr,dpr);
+  ctx.strokeStyle='rgba(255,255,255,0.04)'; ctx.lineWidth=0.5;
+  for(let i=0;i<=4;i++){
+    const x=40+(i/4)*(W-80), y=40+(i/4)*(H-80);
+    ctx.beginPath(); ctx.moveTo(x,40); ctx.lineTo(x,H-40); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(40,y); ctx.lineTo(W-40,y); ctx.stroke();
+  }
+  noise.forEach(p=>{
+    const {cx,cy}=xy(p);
+    ctx.beginPath(); ctx.arc(cx,cy,2.5,0,Math.PI*2);
+    ctx.fillStyle='rgba(136,136,168,0.25)'; ctx.fill();
+  });
+  POINTS.forEach((p,i)=>{
+    const {cx,cy}=xy(p); const isHov=hovered===i; const isPin=pinned===i;
+    if(isHov||isPin){
+      ctx.beginPath();ctx.arc(cx,cy,16,0,Math.PI*2);
+      ctx.fillStyle=p.color+(isPin?'55':'33');ctx.fill();
+    }
+    if(isPin){
+      ctx.beginPath();ctx.arc(cx,cy,8,0,Math.PI*2);
+      ctx.strokeStyle=p.color;ctx.lineWidth=1.5;ctx.stroke();
+    }
+    ctx.beginPath(); ctx.arc(cx,cy,(isHov||isPin)?7:5.5,0,Math.PI*2); ctx.fillStyle=p.color; ctx.fill();
+    const r=cx>W*0.62; ctx.textAlign=r?'right':'left';
+    ctx.font=`${(isHov||isPin)?'bold':'normal'} 13px monospace`;
+    ctx.fillStyle=p.color;
+    ctx.fillText(p.label, r?cx-11:cx+11, cy-10);
+  });
+  ctx.font='11px monospace'; ctx.fillStyle='rgba(136,136,168,0.4)'; ctx.textAlign='center';
+  ctx.fillText('* not real embeddings — illustrative only', W/2, H-8);
+  ctx.restore();
+}
+
+function resize(){
+  W=canvas.parentElement.offsetWidth; H=Math.round(W*0.52);
+  dpr=window.devicePixelRatio||1; canvas.width=W*dpr; canvas.height=H*dpr;
+  canvas.style.height=H+'px'; draw();
+}
+
+const panel = document.getElementById('tsne-panel');
+let pinned = null;
+
+function updatePanel(i) {
+  if (i === null) {
+    panel.style.borderColor = 'transparent';
+    panel.style.color = 'var(--muted)';
+    panel.innerHTML = '<em>click a point to pin its description here</em>';
+  } else {
+    panel.style.borderColor = POINTS[i].color;
+    panel.style.color = 'var(--text)';
+    panel.textContent = POINTS[i].label + ' — ' + POINTS[i].tooltip;
+  }
+}
+
+canvas.addEventListener('mousemove', e=>{
+  const rect=canvas.getBoundingClientRect(), mx=e.clientX-rect.left, my=e.clientY-rect.top;
+  let found=null;
+  POINTS.forEach((p,i)=>{ const {cx,cy}=xy(p); if(Math.hypot(mx-cx,my-cy)<14) found=i; });
+  if(found!==hovered){hovered=found;draw();}
+  if(found!==null){
+    tip.style.opacity='1';
+    tip.style.left=(mx+18)+'px'; tip.style.top=(my-10)+'px';
+    tip.textContent=POINTS[found].tooltip;
+  } else { tip.style.opacity='0'; }
+});
+
+canvas.addEventListener('click', e=>{
+  const rect=canvas.getBoundingClientRect(), mx=e.clientX-rect.left, my=e.clientY-rect.top;
+  let found=null;
+  POINTS.forEach((p,i)=>{ const {cx,cy}=xy(p); if(Math.hypot(mx-cx,my-cy)<14) found=i; });
+  if(found!==null){
+    pinned = (pinned===found) ? null : found;
+    updatePanel(pinned);
+    draw();
+  }
+});
+
+canvas.addEventListener('mouseleave',()=>{hovered=null;tip.style.opacity='0';draw();});
+window.addEventListener('resize',resize);
+resize();
+</script>
+</body>
+</html>

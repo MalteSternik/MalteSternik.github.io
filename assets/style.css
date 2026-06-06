@@ -1,0 +1,316 @@
+:root {
+  --bg:        #1a1a1e;
+  --bg2:       #22222a;
+  --bg3:       #2a2a34;
+  --border:    #3a3a48;
+  --text:      #e8e8f0;
+  --muted:     #8888a8;
+  --accent:    #7eb8f7;
+  --accent2:   #a8e6cf;
+  --accent3:   #f7c59f;
+  --highlight: #ffd166;
+  --mono:      'Courier New', Courier, monospace;
+  --radius:    4px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 18.7px; background: var(--bg); color: var(--text); scroll-padding-top: 110px; }
+
+body {
+  font-family: var(--mono);
+  line-height: 1.7;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 3rem 2rem 6rem;
+}
+
+/* ── header ── */
+.site-header {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 2rem;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  padding: 1.2rem 2rem;
+  margin: 0 -2rem 3rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(26,26,30,0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.avatar-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  object-fit: cover;
+  display: block;
+  background: var(--bg3);
+}
+
+.avatar-placeholder {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  background: var(--bg3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  color: var(--muted);
+  text-align: center;
+  padding: 8px;
+  line-height: 1.4;
+}
+
+.header-text h1 {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.3rem;
+}
+
+.header-text .title {
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
+.header-text .affiliation {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 0.8rem;
+}
+
+.header-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  font-size: 0.75rem;
+}
+
+.header-links a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.header-links a:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ── nav ── */
+nav {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  margin-bottom: 3.5rem;
+  font-size: 0.78rem;
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: all 0.15s;
+}
+
+nav a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(126,184,247,0.06);
+}
+
+/* ── sections ── */
+section {
+  margin-bottom: 4rem;
+}
+
+.section-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent2);
+  border-left: 3px solid var(--accent2);
+  padding-left: 0.7rem;
+  margin-bottom: 1.4rem;
+}
+
+/* ── about ── */
+.about-text {
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 2rem;
+  max-width: 680px;
+}
+
+/* ── embeddings viz ── */
+.embeddings-wrap {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.embeddings-label {
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  letter-spacing: 0.08em;
+}
+
+#tsne-tip {
+  position: absolute;
+  background: var(--bg3);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 5px 10px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.1s;
+  white-space: nowrap;
+  z-index: 10;
+  max-width: 280px;
+  white-space: normal;
+  line-height: 1.4;
+}
+
+/* ── publications ── */
+.pub-list { list-style: none; }
+
+.pub-list li {
+  border-left: 1px solid var(--border);
+  padding: 0 0 1.6rem 1.2rem;
+  margin-left: 0.4rem;
+  position: relative;
+  font-size: 0.88rem;
+}
+
+.pub-list li::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--bg2);
+  border: 1px solid var(--accent);
+}
+
+.pub-list li:last-child { padding-bottom: 0; }
+
+.pub-title {
+  color: var(--text);
+  font-style: italic;
+  margin-bottom: 0.2rem;
+}
+
+.pub-authors { color: var(--muted); font-size: 0.8rem; margin-bottom: 0.2rem; }
+
+.pub-venue {
+  font-size: 0.78rem;
+  color: var(--accent3);
+}
+
+.pub-year {
+  display: inline-block;
+  font-size: 0.7rem;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1px 6px;
+  color: var(--muted);
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* ── work & education ── */
+.entry {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 0 1.6rem;
+  margin-bottom: 2rem;
+  font-size: 0.88rem;
+}
+
+.entry-date {
+  color: var(--muted);
+  font-size: 0.75rem;
+  padding-top: 3px;
+  line-height: 1.5;
+}
+
+.entry-title {
+  color: var(--text);
+  font-weight: bold;
+  margin-bottom: 0.15rem;
+}
+
+.entry-sub {
+  color: var(--accent);
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+}
+
+.entry-desc {
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.entry-tag {
+  display: inline-block;
+  font-size: 0.67rem;
+  padding: 2px 7px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--muted);
+  margin: 4px 3px 0 0;
+}
+
+/* ── footer ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 2rem;
+}
+
+@media (max-width: 640px) {
+  html { font-size: 15px; scroll-padding-top: 70px; }
+  body { padding: 0 1.2rem 4rem; }
+  .site-header {
+    grid-template-columns: 56px 1fr;
+    gap: 1rem;
+    padding: 0.8rem 1.2rem;
+    margin: 0 -1.2rem 2rem;
+  }
+  .avatar, .avatar-placeholder { width: 48px; height: 48px; font-size: 0.5rem; }
+  .header-text h1 { font-size: 1.1rem; }
+  .header-text .title { font-size: 0.72rem; }
+  .header-text .affiliation { font-size: 0.68rem; }
+  .header-links { font-size: 0.68rem; gap: 0.5rem; }
+  nav { margin-bottom: 2rem; }
+  .entry { grid-template-columns: 1fr; gap: 0.2rem; }
+  .entry-date { font-size: 0.72rem; color: var(--accent3); }
+  .embeddings-canvas { height: 200px; }
+}

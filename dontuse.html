@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academic CV</title>
+<style>
+  :root {
+    --bg:        #1a1a1e;
+    --bg2:       #22222a;
+    --bg3:       #2a2a34;
+    --border:    #3a3a48;
+    --text:      #e8e8f0;
+    --muted:     #8888a8;
+    --accent:    #7eb8f7;
+    --accent2:   #a8e6cf;
+    --accent3:   #f7c59f;
+    --highlight: #ffd166;
+    --mono:      'Courier New', Courier, monospace;
+    --radius:    4px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 18.7px; background: var(--bg); color: var(--text); scroll-padding-top: 110px; }
+
+  body {
+    font-family: var(--mono);
+    line-height: 1.7;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+  }
+
+  /* ── header ── */
+  .site-header {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 2rem;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding: 1.2rem 2rem;
+    margin: 0 -2rem 3rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(26,26,30,0.96);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .avatar-wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  .avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    object-fit: cover;
+    display: block;
+    background: var(--bg3);
+  }
+
+  .avatar-placeholder {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    background: var(--bg3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    color: var(--muted);
+    text-align: center;
+    padding: 8px;
+    line-height: 1.4;
+  }
+
+  .header-text h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.3rem;
+  }
+
+  .header-text .title {
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .header-text .affiliation {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 0.8rem;
+  }
+
+  .header-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    font-size: 0.75rem;
+  }
+
+  .header-links a {
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .header-links a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── nav ── */
+  nav {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    margin-bottom: 3.5rem;
+    font-size: 0.78rem;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: all 0.15s;
+  }
+
+  nav a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(126,184,247,0.06);
+  }
+
+  /* ── sections ── */
+  section {
+    margin-bottom: 4rem;
+  }
+
+  .section-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent2);
+    border-left: 3px solid var(--accent2);
+    padding-left: 0.7rem;
+    margin-bottom: 1.4rem;
+  }
+
+  /* ── about ── */
+  .about-text {
+    font-size: 0.9rem;
+    color: var(--text);
+    margin-bottom: 2rem;
+    max-width: 680px;
+  }
+
+
+  /* ── publications ── */
+  .pub-list { list-style: none; }
+
+  .pub-list li {
+    border-left: 1px solid var(--border);
+    padding: 0 0 1.6rem 1.2rem;
+    margin-left: 0.4rem;
+    position: relative;
+    font-size: 0.88rem;
+  }
+
+  .pub-list li::before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: 8px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--bg2);
+    border: 1px solid var(--accent);
+  }
+
+  .pub-list li:last-child { padding-bottom: 0; }
+
+  .pub-title {
+    color: var(--text);
+    font-style: italic;
+    margin-bottom: 0.2rem;
+  }
+
+  .pub-authors { color: var(--muted); font-size: 0.8rem; margin-bottom: 0.2rem; }
+
+  .pub-venue {
+    font-size: 0.78rem;
+    color: var(--accent3);
+  }
+
+  .pub-year {
+    display: inline-block;
+    font-size: 0.7rem;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1px 6px;
+    color: var(--muted);
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* ── work & education ── */
+  .entry {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 0 1.6rem;
+    margin-bottom: 2rem;
+    font-size: 0.88rem;
+  }
+
+  .entry-date {
+    color: var(--muted);
+    font-size: 0.75rem;
+    padding-top: 3px;
+    line-height: 1.5;
+  }
+
+  .entry-body {}
+
+  .entry-title {
+    color: var(--text);
+    font-weight: bold;
+    margin-bottom: 0.15rem;
+  }
+
+  .entry-sub {
+    color: var(--accent);
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .entry-desc {
+    color: var(--muted);
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+
+  .entry-tag {
+    display: inline-block;
+    font-size: 0.67rem;
+    padding: 2px 7px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--muted);
+    margin: 4px 3px 0 0;
+  }
+
+  /* ── footer ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 640px) {
+    html { font-size: 15px; scroll-padding-top: 70px; }
+    body { padding: 0 1.2rem 4rem; }
+    .site-header {
+      grid-template-columns: 56px 1fr;
+      gap: 1rem;
+      padding: 0.8rem 1.2rem;
+      margin: 0 -1.2rem 2rem;
+    }
+    .avatar, .avatar-placeholder { width: 48px; height: 48px; font-size: 0.5rem; }
+    .header-text h1 { font-size: 1.1rem; }
+    .header-text .title { font-size: 0.72rem; }
+    .header-text .affiliation { font-size: 0.68rem; }
+    .header-links { font-size: 0.68rem; gap: 0.5rem; }
+    nav { margin-bottom: 2rem; }
+    .entry { grid-template-columns: 1fr; gap: 0.2rem; }
+    .entry-date { font-size: 0.72rem; color: var(--accent3); }
+    .embeddings-canvas { height: 200px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header class="site-header">
+  <div class="avatar-wrap">
+    <!-- Replace the div below with: <img src="photo.jpg" alt="Your Name" class="avatar"> -->
+    <div class="avatar-placeholder">your<br>photo<br>here</div>
+  </div>
+  <div class="header-text">
+    <h1>Your Name</h1>
+    <div class="title">PhD Researcher · Computational Linguistics</div>
+    <div class="affiliation">Ruhr-Universität Bochum &nbsp;·&nbsp; Faculty of Philology</div>
+    <div class="header-links">
+      <a href="mailto:you@rub.de">you@rub.de</a>
+      <a href="https://github.com/yourhandle">github</a>
+      <a href="https://scholar.google.com">google scholar</a>
+      <a href="cv.pdf">cv.pdf</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav>
+  <a href="#about">about</a>
+  <a href="#publications">publications</a>
+  <a href="#work">work</a>
+  <a href="#education">education</a>
+</nav>
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<section id="about">
+  <div class="section-label">about me</div>
+
+  <p class="about-text">
+    I am a PhD researcher at Ruhr-Universität Bochum working at the intersection of
+    computational linguistics and historical language change. My research focuses on how
+    meaning evolves in language over time, combining distributional semantics with
+    corpus-driven methods. I am particularly interested in how computational models can
+    capture subtle linguistic phenomena that traditionally required human expertise to detect.
+  </p>
+
+  <!-- Embeddings visualisation -->
+  <div class="embeddings-wrap">
+    <div class="embeddings-label">// word embedding space — research interests</div>
+    <div style="position:relative">
+      <canvas id="tsne-c" style="display:block;width:100%;cursor:pointer;"></canvas>
+      <div id="tsne-tip"></div>
+    </div>
+    <div id="tsne-panel" style="min-height:2.4rem;margin-top:0.8rem;padding:0.6rem 0.8rem;border-left:2px solid transparent;border-radius:2px;font-size:0.78rem;line-height:1.5;color:var(--muted);transition:border-color 0.2s,color 0.2s;">
+      <em>click a point to pin its description here</em>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PUBLICATIONS ═══════════════ -->
+<section id="publications">
+  <div class="section-label">publications</div>
+
+  <ul class="pub-list">
+    <li>
+      <div class="pub-title">Tracking Semantic Shifts in Diachronic Corpora Using Contextualised Embeddings</div>
+      <div class="pub-authors">Your Name, Co-Author A, Co-Author B</div>
+      <div class="pub-venue">Proceedings of ACL <span class="pub-year">2025</span></div>
+    </li>
+    <li>
+      <div class="pub-title">Neologisms and the Limits of Distributional Models</div>
+      <div class="pub-authors">Your Name, Co-Author C</div>
+      <div class="pub-venue">Journal of Computational Linguistics <span class="pub-year">2024</span></div>
+    </li>
+    <li>
+      <div class="pub-title">Metaphor Detection Across Registers: A Word Embedding Approach</div>
+      <div class="pub-authors">Your Name</div>
+      <div class="pub-venue">EMNLP Workshop on Figurative Language <span class="pub-year">2023</span></div>
+    </li>
+    <li>
+      <div class="pub-title">Sociolinguistic Variation in Vector Space: Regional and Sociolectal Differences</div>
+      <div class="pub-authors">Your Name, Co-Author D</div>
+      <div class="pub-venue">Language Variation and Change <span class="pub-year">2023</span></div>
+    </li>
+  </ul>
+</section>
+
+<!-- ═══════════════ WORK ═══════════════ -->
+<section id="work">
+  <div class="section-label">work</div>
+
+  <div class="entry">
+    <div class="entry-date">2025 —<br>present</div>
+    <div class="entry-body">
+      <div class="entry-title">Research Assistant</div>
+      <div class="entry-sub">Ruhr-Universität Bochum</div>
+      <div class="entry-desc">
+        Project: Computational Historical Linguistics (Comphist).
+        Developing diachronic word embedding models for German historical corpora.
+      </div>
+      <span class="entry-tag">Python</span>
+      <span class="entry-tag">word2vec</span>
+      <span class="entry-tag">corpus linguistics</span>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-date">2023 —<br>2025</div>
+    <div class="entry-body">
+      <div class="entry-title">Teaching Assistant</div>
+      <div class="entry-sub">Ruhr-Universität Bochum · Dept. of Linguistics</div>
+      <div class="entry-desc">
+        Tutorials for Introduction to Computational Linguistics and Statistics for Linguists.
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-date">2022</div>
+    <div class="entry-body">
+      <div class="entry-title">Research Intern</div>
+      <div class="entry-sub">Institute / Company Name</div>
+      <div class="entry-desc">
+        Brief description of internship tasks and outcomes.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ EDUCATION ═══════════════ -->
+<section id="education">
+  <div class="section-label">education</div>
+
+  <div class="entry">
+    <div class="entry-date">2022 —<br>present</div>
+    <div class="entry-body">
+      <div class="entry-title">PhD in Computational Linguistics</div>
+      <div class="entry-sub">Ruhr-Universität Bochum</div>
+      <div class="entry-desc">
+        Thesis: <em>Semantic Change Detection in Diachronic Corpora</em><br>
+        Supervisor: Prof. Name
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-date">2019 —<br>2022</div>
+    <div class="entry-body">
+      <div class="entry-title">M.A. Linguistics</div>
+      <div class="entry-sub">University Name</div>
+      <div class="entry-desc">
+        Specialisation in corpus linguistics and language technology. Grade: 1.2.
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-date">2015 —<br>2019</div>
+    <div class="entry-body">
+      <div class="entry-title">B.A. German Philology &amp; Linguistics</div>
+      <div class="entry-sub">University Name</div>
+      <div class="entry-desc">
+        Minor in Computer Science.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  last updated: 2025 &nbsp;·&nbsp; built with plain HTML &nbsp;·&nbsp; hosted on GitHub Pages
+</footer>
+
+
+<script>
+const POINTS = [
+  { label: "Semantic Shifts",  tooltip: "What makes words suitable for semantic shifts? How does it happen in the online sphere?",  x: 0.20, y: 0.25, color: "#7eb8f7" },
+  { label: "Neologisms",       tooltip: "When, why and how are new words formed and used, especially online?",                       x: 0.72, y: 0.18, color: "#a8e6cf" },
+  { label: "Metaphors",        tooltip: "How can metaphor constructions be quantified and automatically detected?",                  x: 0.55, y: 0.60, color: "#f28b82" },
+  { label: "Word Embeddings",  tooltip: "How do computational embeddings relate to cognitive word representations and semantics?",   x: 0.18, y: 0.70, color: "#d4a0c8" },
+  { label: "Sociolinguistics", tooltip: "What can linguistic data tell us about society?",                                           x: 0.78, y: 0.72, color: "#f7c59f" },
+];
+const NOISE = 100;
+
+const canvas = document.getElementById('tsne-c');
+const tip    = document.getElementById('tsne-tip');
+let W, H, dpr, hovered = null;
+
+function seededRand(s) { return () => { s = (s*16807)%2147483647; return (s-1)/2147483646; }; }
+const rand  = seededRand(343);
+const noise = Array.from({length: NOISE}, () => ({x: 0.05+rand()*0.9, y: 0.05+rand()*0.9}));
+
+function xy(p) { const pad=40; return {cx: pad+p.x*(W-pad*2), cy: pad+p.y*(H-pad*2)}; }
+
+function draw() {
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.save(); ctx.scale(dpr,dpr);
+  ctx.strokeStyle='rgba(255,255,255,0.04)'; ctx.lineWidth=0.5;
+  for(let i=0;i<=4;i++){
+    const x=40+(i/4)*(W-80), y=40+(i/4)*(H-80);
+    ctx.beginPath(); ctx.moveTo(x,40); ctx.lineTo(x,H-40); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(40,y); ctx.lineTo(W-40,y); ctx.stroke();
+  }
+  noise.forEach(p=>{
+    const {cx,cy}=xy(p);
+    ctx.beginPath(); ctx.arc(cx,cy,2.5,0,Math.PI*2);
+    ctx.fillStyle='rgba(136,136,168,0.25)'; ctx.fill();
+  });
+  POINTS.forEach((p,i)=>{
+    const {cx,cy}=xy(p); const isHov=hovered===i; const isPin=pinned===i;
+    if(isHov||isPin){
+      ctx.beginPath();ctx.arc(cx,cy,16,0,Math.PI*2);
+      ctx.fillStyle=p.color+(isPin?'55':'33');ctx.fill();
+    }
+    if(isPin){
+      ctx.beginPath();ctx.arc(cx,cy,8,0,Math.PI*2);
+      ctx.strokeStyle=p.color;ctx.lineWidth=1.5;ctx.stroke();
+    }
+    ctx.beginPath(); ctx.arc(cx,cy,(isHov||isPin)?7:5.5,0,Math.PI*2); ctx.fillStyle=p.color; ctx.fill();
+    const r=cx>W*0.62; ctx.textAlign=r?'right':'left';
+    ctx.font=`${(isHov||isPin)?'bold':'normal'} 13px monospace`;
+    ctx.fillStyle=p.color;
+    ctx.fillText(p.label, r?cx-11:cx+11, cy-10);
+  });
+  ctx.font='11px monospace'; ctx.fillStyle='rgba(136,136,168,0.4)'; ctx.textAlign='center';
+  ctx.fillText('* not real embeddings — illustrative only', W/2, H-8);
+  ctx.restore();
+}
+
+function resize(){
+  W=canvas.parentElement.offsetWidth; H=Math.round(W*0.52);
+  dpr=window.devicePixelRatio||1; canvas.width=W*dpr; canvas.height=H*dpr;
+  canvas.style.height=H+'px'; draw();
+}
+
+const panel = document.getElementById('tsne-panel');
+let pinned = null;
+
+function updatePanel(i) {
+  if (i === null) {
+    panel.style.borderColor = 'transparent';
+    panel.style.color = 'var(--muted)';
+    panel.innerHTML = '<em>click a point to pin its description here</em>';
+  } else {
+    panel.style.borderColor = POINTS[i].color;
+    panel.style.color = 'var(--text)';
+    panel.textContent = POINTS[i].label + ' — ' + POINTS[i].tooltip;
+  }
+}
+
+canvas.addEventListener('mousemove', e=>{
+  const rect=canvas.getBoundingClientRect(), mx=e.clientX-rect.left, my=e.clientY-rect.top;
+  let found=null;
+  POINTS.forEach((p,i)=>{ const {cx,cy}=xy(p); if(Math.hypot(mx-cx,my-cy)<14) found=i; });
+  if(found!==hovered){hovered=found;draw();}
+  if(found!==null){
+    tip.style.opacity='1';
+    tip.style.left=(mx+18)+'px'; tip.style.top=(my-10)+'px';
+    tip.textContent=POINTS[found].tooltip;
+  } else { tip.style.opacity='0'; }
+});
+
+canvas.addEventListener('click', e=>{
+  const rect=canvas.getBoundingClientRect(), mx=e.clientX-rect.left, my=e.clientY-rect.top;
+  let found=null;
+  POINTS.forEach((p,i)=>{ const {cx,cy}=xy(p); if(Math.hypot(mx-cx,my-cy)<14) found=i; });
+  if(found!==null){
+    pinned = (pinned===found) ? null : found;
+    updatePanel(pinned);
+    draw();
+  }
+});
+
+canvas.addEventListener('mouseleave',()=>{hovered=null;tip.style.opacity='0';draw();});
+window.addEventListener('resize',resize);
+resize();
+</script>
+</body>
+</html>
