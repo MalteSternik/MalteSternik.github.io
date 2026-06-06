@@ -17,13 +17,12 @@ layout: null
     <img src="img/avatar.jpg" alt="Malte Sternik" class="avatar">
   </div>
   <div class="header-text">
-    <h1>Your Name</h1>
-    <div class="title">PhD Researcher · Computational Linguistics</div>
+    <h1>Malte Sternik</h1>
+    <div class="title"></div>
     <div class="affiliation">Ruhr-Universität Bochum &nbsp;·&nbsp; Faculty of Philology</div>
     <div class="header-links">
-      <a href="mailto:you@rub.de">you@rub.de</a>
+      <a href="mailto:malte.sternik@edu.rub.de">malte.sternik@edu.rub.de</a>
       <a href="https://github.com/yourhandle">github</a>
-      <a href="https://scholar.google.com">google scholar</a>
       <a href="cv.pdf">cv.pdf</a>
     </div>
   </div>
@@ -42,22 +41,18 @@ layout: null
   <div class="section-label">about me</div>
 
   <p class="about-text">
-    I am a PhD researcher at Ruhr-Universität Bochum working at the intersection of
-    computational linguistics and historical language change. My research focuses on how
-    meaning evolves in language over time, combining distributional semantics with
-    corpus-driven methods. I am particularly interested in how computational models can
-    capture subtle linguistic phenomena that traditionally required human expertise to detect.
+    I am a Computerlinguistics student at Ruhr-University Bochum. This fast-evolving field fascinates me as there is something about quantifying linguistic data to inferr something about how language behaves, especially in the digital world!
   </p>
 
   <!-- Embeddings visualisation -->
   <div class="embeddings-wrap">
-    <div class="embeddings-label">// word embedding space — research interests</div>
+    <div class="embeddings-label">These are my main research interests:</div>
     <div style="position:relative">
       <canvas id="tsne-c" style="display:block;width:100%;cursor:pointer;"></canvas>
       <div id="tsne-tip"></div>
     </div>
     <div id="tsne-panel" style="min-height:2.4rem;margin-top:0.8rem;padding:0.6rem 0.8rem;border-left:2px solid transparent;border-radius:2px;font-size:0.78rem;line-height:1.5;color:var(--muted);transition:border-color 0.2s,color 0.2s;">
-      <em>click a point to pin its description here</em>
+      <em></em>
     </div>
   </div>
 </section>
@@ -122,11 +117,12 @@ layout: null
 
 <script>
 const POINTS = [
-  { label: "Semantic Shifts",  tooltip: "What makes words suitable for semantic shifts? How does it happen in the online sphere?",  x: 0.20, y: 0.25, color: "#7eb8f7" },
-  { label: "Neologisms",       tooltip: "When, why and how are new words formed and used, especially online?",                       x: 0.72, y: 0.18, color: "#a8e6cf" },
-  { label: "Metaphors",        tooltip: "How can metaphor constructions be quantified and automatically detected?",                  x: 0.55, y: 0.60, color: "#f28b82" },
-  { label: "Word Embeddings",  tooltip: "How do computational embeddings relate to cognitive word representations and semantics?",   x: 0.18, y: 0.70, color: "#d4a0c8" },
-  { label: "Sociolinguistics", tooltip: "What can linguistic data tell us about society?",                                           x: 0.78, y: 0.72, color: "#f7c59f" },
+  { label: "Semantic Shifts",  tooltip: "How do semantic shifts occur nowadays? The digital age of social media seems to amplify communications, generate a multilingual global public sphere, and thus changes at least the pace of semantic shifts occuring. I want to find out what are the linguistic attributes for semantic shifts to occur and how does it relate to a multilingual sphere?"
+  ,  x: 0.20, y: 0.25, color: "#7eb8f7" },
+  { label: "Neologisms",       tooltip: "Now, given the mix of languages, cultures, and individuals on the internet, the way neologisms are formed are fascinating to me. Neologisms can somewhat violate established linguistic rules - aligning with the humor incongruity theory - so how can memes push neologisms?",                       x: 0.72, y: 0.18, color: "#a8e6cf" },
+  { label: "Metaphors",        tooltip: "How can metaphor constructions be quantified and automatically detected? Do different metaphor constructions work differently depending on language, culture and age? Which can LLMs understand and reproduce?",                  x: 0.55, y: 0.60, color: "#f28b82" },
+  { label: "Word Embeddings",  tooltip: "What methods are there to even further analyse the vast space of word embeddings? How can neologisms, metaphors, sociolinguistic information and semantic shifts be visualized or mathematically traced within a vector space?",   x: 0.18, y: 0.70, color: "#d4a0c8" },
+  { label: "Sociolinguistics", tooltip: "What can the use of language tell us about a society? Can we track linguistic changes and make meaningful predictions on how a society is changing?",                                           x: 0.78, y: 0.72, color: "#f7c59f" },
 ];
 const NOISE = 100;
 
