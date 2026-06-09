@@ -65,7 +65,8 @@ layout: null
     {% for pub in site.data.publications %}
     <li>
       <div class="pub-title">
-        {% if pub.url != "" %}<a href="{{ pub.url }}" style="color:inherit;text-decoration:none;">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}
+        
+        {% if pub.url != "" %}<a href="{{ pub.url }}" download style="color:inherit;text-decoration:none;">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}
       </div>
       <div class="pub-authors">{{ pub.authors }}</div>
       <div class="pub-venue">{{ pub.venue }} <span class="pub-year">{{ pub.year }}</span></div>
