@@ -41,7 +41,7 @@ layout: null
   <div class="section-label">about me</div>
 
   <p class="about-text">
-    I am a computational linguistics student at Ruhr-University Bochum. This fast-evolving field fascinates me as there is something quite fascinating about infering knowledge about language through quantifying and analyzing linguistic phenomena. 
+    I am a computational linguistics student at Ruhr-University Bochum. This fast-evolving field fascinates me as there is something quite fascinating about infering knowledge about language through quantifying and analyzing linguistic phenomena. Recently, I became quite interested in LLM interpretability, trust worthy AI and hybrid models and workflows. 
 
   <!-- Embeddings visualisation -->
   <div class="embeddings-wrap">
@@ -114,111 +114,6 @@ layout: null
 <footer>
   last updated: 2026 &nbsp;·&nbsp; built with Jekyll &nbsp;·&nbsp; hosted on GitHub Pages
 </footer>
-
-<script>
-const POINTS = [
-  { label: "Semantic Shifts",  tooltip: "How do semantic shifts occur nowadays? The digital age of social media seems to amplify communications, generate a multilingual global public sphere, and thus change at least the pace of semantic shifts. I want to find out what exactly the linguistic attributes are that lead to semantic shifts and how does it relate to the multilingual online sphere?"
-  ,  x: 0.20, y: 0.25, color: "#7eb8f7" },
-  { label: "Neologisms",       tooltip: "Now, given the mix of languages, cultures, and individuals on the internet, the way neologisms are formed is fascinating to me. Neologisms often somewhat violate established linguistic rules - aligning with the humor incongruity theory - so how can memes (usually humorous I would say) push widespread neologisms into existence?",                       x: 0.72, y: 0.18, color: "#a8e6cf" },
-  { label: "Metaphors",        tooltip: "How can metaphor constructions be quantified and automatically detected? Do different metaphor constructions work differently depending on language, culture, and age? Which can LLMs understand and reproduce?",                  x: 0.55, y: 0.60, color: "#f28b82" },
-  { label: "Word Embeddings",  tooltip: "What methods are there to even further analyze the vast space of word embeddings? How can neologisms, metaphors, sociolinguistic information. and semantic shifts be visualized or mathematically traced within a vector space?",   x: 0.18, y: 0.70, color: "#d4a0c8" },
-  { label: "Sociolinguistics", tooltip: "What can the use of language tell us about a society? Can we track linguistic changes and make meaningful predictions on how a society is changing?",                                           x: 0.78, y: 0.72, color: "#f7c59f" },
-];
-const NOISE = 100;
-
-const canvas = document.getElementById('tsne-c');
-const tip    = document.getElementById('tsne-tip');
-let W, H, dpr, hovered = null;
-
-function seededRand(s) { return () => { s = (s*16807)%2147483647; return (s-1)/2147483646; }; }
-const rand  = seededRand(343);
-const noise = Array.from({length: NOISE}, () => ({x: 0.05+rand()*0.9, y: 0.05+rand()*0.9}));
-
-function xy(p) { const pad=40; return {cx: pad+p.x*(W-pad*2), cy: pad+p.y*(H-pad*2)}; }
-
-function draw() {
-  const ctx = canvas.getContext('2d');
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.save(); ctx.scale(dpr,dpr);
-  ctx.strokeStyle='rgba(255,255,255,0.04)'; ctx.lineWidth=0.5;
-  for(let i=0;i<=4;i++){
-    const x=40+(i/4)*(W-80), y=40+(i/4)*(H-80);
-    ctx.beginPath(); ctx.moveTo(x,40); ctx.lineTo(x,H-40); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(40,y); ctx.lineTo(W-40,y); ctx.stroke();
-  }
-  noise.forEach(p=>{
-    const {cx,cy}=xy(p);
-    ctx.beginPath(); ctx.arc(cx,cy,2.5,0,Math.PI*2);
-    ctx.fillStyle='rgba(136,136,168,0.25)'; ctx.fill();
-  });
-  POINTS.forEach((p,i)=>{
-    const {cx,cy}=xy(p); const isHov=hovered===i; const isPin=pinned===i;
-    if(isHov||isPin){
-      ctx.beginPath();ctx.arc(cx,cy,16,0,Math.PI*2);
-      ctx.fillStyle=p.color+(isPin?'55':'33');ctx.fill();
-    }
-    if(isPin){
-      ctx.beginPath();ctx.arc(cx,cy,8,0,Math.PI*2);
-      ctx.strokeStyle=p.color;ctx.lineWidth=1.5;ctx.stroke();
-    }
-    ctx.beginPath(); ctx.arc(cx,cy,(isHov||isPin)?7:5.5,0,Math.PI*2); ctx.fillStyle=p.color; ctx.fill();
-    const r=cx>W*0.62; ctx.textAlign=r?'right':'left';
-    ctx.font=`${(isHov||isPin)?'bold':'normal'} 13px monospace`;
-    ctx.fillStyle=p.color;
-    ctx.fillText(p.label, r?cx-11:cx+11, cy-10);
-  });
-  ctx.font='11px monospace'; ctx.fillStyle='rgba(136,136,168,0.4)'; ctx.textAlign='center';
-  ctx.fillText('* not real embeddings — illustrative only', W/2, H-8);
-  ctx.restore();
-}
-
-function resize(){
-  W=canvas.parentElement.offsetWidth; H=Math.round(W*0.52);
-  dpr=window.devicePixelRatio||1; canvas.width=W*dpr; canvas.height=H*dpr;
-  canvas.style.height=H+'px'; draw();
-}
-
-const panel = document.getElementById('tsne-panel');
-let pinned = null;
-
-function updatePanel(i) {
-  if (i === null) {
-    panel.style.borderColor = 'transparent';
-    panel.style.color = 'var(--muted)';
-    panel.innerHTML = '<em>click a point to pin its description here</em>';
-  } else {
-    panel.style.borderColor = POINTS[i].color;
-    panel.style.color = 'var(--text)';
-    panel.textContent = POINTS[i].label + ' — ' + POINTS[i].tooltip;
-  }
-}
-
-canvas.addEventListener('mousemove', e=>{
-  const rect=canvas.getBoundingClientRect(), mx=e.clientX-rect.left, my=e.clientY-rect.top;
-  let found=null;
-  POINTS.forEach((p,i)=>{ const {cx,cy}=xy(p); if(Math.hypot(mx-cx,my-cy)<14) found=i; });
-  if(found!==hovered){hovered=found;draw();}
-  if(found!==null){
-    tip.style.opacity='1';
-    tip.style.left=(mx+18)+'px'; tip.style.top=(my-10)+'px';
-    tip.textContent='Click me!';
-  } else { tip.style.opacity='0'; }
-});
-
-canvas.addEventListener('click', e=>{
-  const rect=canvas.getBoundingClientRect(), mx=e.clientX-rect.left, my=e.clientY-rect.top;
-  let found=null;
-  POINTS.forEach((p,i)=>{ const {cx,cy}=xy(p); if(Math.hypot(mx-cx,my-cy)<14) found=i; });
-  if(found!==null){
-    pinned = (pinned===found) ? null : found;
-    updatePanel(pinned);
-    draw();
-  }
-});
-
-canvas.addEventListener('mouseleave',()=>{hovered=null;tip.style.opacity='0';draw();});
-window.addEventListener('resize',resize);
-resize();
-</script>
+  
 </body>
 </html>
