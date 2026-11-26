@@ -1,14 +1,14 @@
 :root {
-  --bg:        #1a1a1e;
-  --bg2:       #22222a;
-  --bg3:       #2a2a34;
-  --border:    #3a3a48;
+  --bg:        #003560;
+  --bg2:       #003560;
+  --bg3:       #003560;
+  --border:    #FFFFFF;
   --text:      #e8e8f0;
-  --muted:     #9d9dc2;
-  --accent:    #7eb8f7;
-  --accent2:   #a8e6cf;
-  --accent3:   #f7c59f;
-  --highlight: #ffd166;
+  --muted:     #E9DCFB;
+  --accent:    #FBDCF6;
+  --accent2:   #BB97FF;
+  --accent3:   #FFDDD6;
+  --highlight: #FFDDD6;
   --mono:      'Courier New', Courier, monospace;
   --radius:    4px;
 }
